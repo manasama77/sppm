@@ -179,9 +179,10 @@
 
 	function prosesFilter()
 	{
-		let nis   = $('#nis').val();
+		let id_kelas = $('#id_kelas').val();
+		let nis      = $('#nis').val();
 		$.ajax({
-			url: '<?=site_url();?>spp/show/' + nis,
+			url: `<?=site_url();?>spp/show/${id_kelas}/${nis}`,
 			method: 'get',
 			dataType: 'json',
 			beforeSend: function(){
@@ -190,12 +191,17 @@
 				$('.portlet1.expand').trigger('click');
 				$('.portlet1.reload').hide();
 				$('#vresult').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i></div>');
+
+				$('.collapse.portlet2').trigger('click');
+				$('.expand.portlet2').trigger('click');
+				$('#id_bayar_spp').attr('disabled', true);
 			},
 			statusCode: {
 				200: function(){
 					console.log(200);
 					$.unblockUI();
 					$('.portlet1.reload').show();
+					$('#id_bayar_spp').attr('disabled', false);
 				},
 				400: function(){
 					console.log(400);
@@ -223,7 +229,7 @@
 			<tr>
 			`;
 
-			$.each(res.data, function(i, k){
+			$.each(res.siswa[0].data, function(i, k){
 				html += `
 				<th>${k.bulan} ${k.tahun}</th>
 				`;
@@ -236,7 +242,7 @@
 			<tr>
 			`;
 
-			$.each(res.data, function(i, k){
+			$.each(res.siswa[0].data, function(i, k){
 				if(k.flag_bayar == '1'){
 					html += `
 					<td class="bg-green-jungle bg-font-green-jungle">
@@ -255,47 +261,12 @@
 			`;
 
 			$('#vresult').html(html);
-		});
 
-		$.ajax({
-			url: '<?=site_url();?>spp/show/' + nis,
-			method: 'get',
-			dataType: 'json',
-			beforeSend: function(){
-				$.blockUI({message: '<i class="fa fa-spinner fa-spin"></i> Try to Get the Data... Please Wait...'});
-				$('.collapse.portlet2').trigger('click');
-				$('.expand.portlet2').trigger('click');
-				$('#id_bayar_spp').attr('disabled', true);
-			},
-			statusCode: {
-				200: function(){
-					$('#id_bayar_spp').attr('disabled', false);
-					console.log(200);
-					$.unblockUI();
-				},
-				400: function(){
-					console.log(400);
-					toastr.warning('Error 400', 'Oops...');
-					$.unblockUI();
-				},
-				404: function(){
-					console.log(404);
-					toastr.warning('Error 404', 'Oops...');
-					$.unblockUI();
-				},
-				500: function(){
-					console.log(500);
-					toastr.warning('Error 500', 'Oops...');
-					$.unblockUI();
-				}
-			}
-		})
-		.done(function(res){
-			console.log(res);
+
 			let select = '<option value=""></option>';
 
-			if(res.total_data > 0){
-				$.each(res.data, function(i, k){
+			if(res.siswa[0].total_data_tunggakan > 0){
+				$.each(res.siswa[0].data, function(i, k){
 
 					if(k.flag_bayar == '0'){
 						select += `<option value="${k.id}">${k.bulan} ${k.tahun}</option>`;

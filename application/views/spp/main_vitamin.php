@@ -88,6 +88,7 @@
 				$('#submit').attr('disabled', true);
 			}else{
 				html += `<option value=""></option>`;
+				html += `<option value="all">Semua Siswa</option>`;
 				$.each(res.data, function(i, k){
 					html += `<option value="${k.nis}">${k.nama}</option>`;
 				});
@@ -102,23 +103,26 @@
 
 	function prosesFilter()
 	{
-		let nis   = $('#nis').val();
+		let id_kelas = $('#id_kelas').val();
+		let nis      = $('#nis').val();
 		$.ajax({
-			url: '<?=site_url();?>spp/show/' + nis,
+			url: `<?=site_url();?>spp/show/${id_kelas}/${nis}`,
 			method: 'get',
 			dataType: 'json',
 			beforeSend: function(){
 				$.blockUI({message: '<i class="fa fa-spinner fa-spin"></i> Try to Get the Data... Please Wait...'});
-				$('.collapse').trigger('click');
-				$('.expand').trigger('click');
-				$('.reload').hide();
+				$('.portlet1.collapse').trigger('click');
+				$('.portlet1.expand').trigger('click');
+				$('.portlet1.reload').hide();
+				$('.expxls').hide();
 				$('#vresult').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i></div>');
 			},
 			statusCode: {
 				200: function(){
 					console.log(200);
 					$.unblockUI();
-					$('.reload').show();
+					$('.portlet1.reload').show();
+					$('.expxls').show();
 				},
 				400: function(){
 					console.log(400);
@@ -140,47 +144,96 @@
 		.done(function(res){
 			console.log(res);
 			let flag_bayar = '';
-			let html = `
-			<table class="table table-bordered text-center">
-			<thead class="bg-blue-chambray bg-font-blue-chambray">
-			<tr>
-			`;
+			let html = ``;
 
-			$.each(res, function(i, k){
+			if(res.total_siswa == 0){
 				html += `
-				<th>${k.bulan} ${k.tahun}</th>
+				<table class="table table-bordered text-center">
+				<thead class="bg-blue-chambray bg-font-blue-chambray">
+				<tr>
+				<th>Data tidak ditemukan</th>
+				</tr>
+				</thead>
+				</table>
 				`;
-			});
+			}else{
 
-			html += `
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-			`;
+				let i = 0;
+				$.each(res.siswa, function(isiswa, ksiswa){
+					let nis                  = ksiswa.nis;
+					let nama                 = ksiswa.nama;
+					let nama_kelas           = ksiswa.nama_kelas;
+					let total_data_all       = ksiswa.total_data_all;
+					let total_data_lunas     = ksiswa.total_data_lunas;
+					let total_data_tunggakan = ksiswa.total_data_tunggakan;
 
-			$.each(res, function(i, k){
-				if(k.flag_bayar == '1'){
 					html += `
-					<td class="bg-green-jungle bg-font-green-jungle">
-					<i class="fa fa-check"></i>
-					<p class="small">${k.tanggal_bayar}</p>
-					</td>`;
-				}else{
-					html += `<td class="bg-red-thunderbird bg-font-red-thunderbird" onclick="ModalBayar('${k.nis}', '${k.nama}');"><i class="fa fa-times"></i></td>`;
-				}
-			});
+					<table class="table table-bordered text-center">
+					<thead class="bg-blue-chambray bg-font-blue-chambray">
+					`;
 
-			html += `
-			</tr>
-			</tbody>
-			</table>
-			`;
+					html += `
+					<tr>
+					<th width="150px">NIS - NAMA</th>
+					<th>${nis} - ${nama}</th>
+					</tr>
+					<tr>
+					<th>Kelas</th>
+					<th>${nama_kelas}</th>
+					</tr>
+					<tr>
+					<th>SPP Lunas</th>
+					<th>${total_data_lunas} Lunas</th>
+					</tr>
+					<tr>
+					<th>SPP Tertunggak</th>
+					<th>${total_data_tunggakan} Tunggakan</th>
+					</tr>
+					`;
+
+					html += `</thead></table>`;
+
+					html += `
+					<table class="table table-bordered text-center">
+					<thead class="bg-blue-chambray bg-font-blue-chambray">
+					<tr>
+					`;
+
+					$.each(res.siswa[i].data, function(ispp, kspp){
+						let bulan = kspp.bulan;
+						let tahun = kspp.tahun;
+						html += `<td>${bulan} ${tahun}</td>`;
+					})
+
+					html += `</tr></thead><tbody><tr>`
+
+					$.each(res.siswa[i].data, function(ispp, kspp){
+						let tanggal_bayar = kspp.tanggal_bayar;
+						let flag_bayar    = kspp.flag_bayar;
+
+						if(flag_bayar == '1'){
+							html += `
+							<td class="bg-green-jungle bg-font-green-jungle">
+							<i class="fa fa-check"></i>
+							<p class="small">${tanggal_bayar}</p>
+							</td>`;
+						}else{
+							html += `<td class="bg-red-thunderbird bg-font-red-thunderbird"><i class="fa fa-times"></i></td>`;
+						}
+
+					});
+
+					html += `</tr></tbody></table>`
+
+					html += `<hr>`;
+
+					i++;
+				});
+
+			}
 
 			$('#vresult').html(html);
 		});
 
 	}
-
-	function
 </script>

@@ -100,18 +100,18 @@
 				</ul>
 			</li>
 
-			<li class="nav-item start <?=($this->uri->segment(1) == 'spp' && $this->uri->segment(2) == 'create')? 'active': '';?>">
-				<a href="<?=site_url();?>spp/create" class="nav-link">
-					<span class="title"><i class="fa fa-plus-circle fa-fw"></i> Bayar SPP</span>
-				</a>
-			</li>
-			<li class="nav-item <?=($this->uri->segment(1) == 'spp' && $this->uri->segment(2) != 'create')? 'active': '';?>">
+			<li class="nav-item <?=($this->uri->segment(1) == 'spp')? 'active': '';?>">
 				<a href="javascript:;" class="nav-link nav-toggle">
 					<i class="fa fa-book fa-fw"></i>
 					<span class="title">SPP Management</span>
 					<span class="arrow <?=($this->uri->segment(1) == 'spp' && $this->uri->segment(2) != 'create')? 'open': '';?>"></span>
 				</a>
 				<ul class="sub-menu active">
+					<li class="nav-item <?=($this->uri->segment(1) == 'spp' && $this->uri->segment(2) == 'create')? 'active': '';?>">
+						<a href="<?=site_url();?>spp/create" class="nav-link ">
+							<span class="title"><i class="fa fa-plus-circle fa-fw"></i> Bayar SPP</span>
+						</a>
+					</li>
 					<li class="nav-item <?=($this->uri->segment(1) == 'spp' && $this->uri->segment(2) == 'index')? 'active': '';?>">
 						<a href="<?=site_url();?>spp/index" class="nav-link ">
 							<span class="title"><i class="fa fa-file-text fa-fw"></i> Data SPP</span>

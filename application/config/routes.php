@@ -61,7 +61,7 @@ $route['get_siswa/(:any)/(:num)']['get'] = 'siswa/get_siswa/$1/$2';
 # SPP
 $route['spp/index']['get']                      = 'spp/index';
 $route['spp/create']['get']                     = 'spp/create';
-$route['spp/show/(:num)']['get']                = 'spp/show/$1';
+$route['spp/show/(:num)/(:any)']['get']         = 'spp/show/$1/$2';
 $route['spp/show_nominal/(:num)/(:any)']['get'] = 'spp/show_nominal/$1/$2';
 $route['spp/store']['post']                     = 'spp/store';
 

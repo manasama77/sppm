@@ -56,93 +56,26 @@
 	<div class="row">
 		<div class="col-md-12 ">
 
-			<div class="portlet box box green">
+			<div class="portlet box box dark">
 				<div class="portlet-title">
 					<div class="caption">
 						<i class="fa fa-table"></i> Data SPP
 					</div>
 					<div class="tools">
-						<a href="javascript:;" class="expand" data-original-title="" title=""> </a>
+						<a href="javascript:;" class="portlet1 expand" data-original-title="" title=""> </a>
 						<a href="" class="fullscreen" data-original-title="" title=""> </a>
-						<a href="javascript:;" class="reload" style="display: none;"></a>
+						<a href="javascript:;" class="portlet1 reload" style="display: none;"></a>
+					</div>
+					<div class="actions">
+						<button type="button" class="btn btn-outline sbold uppercase green-jungle btn-sm expxls" style="display: none;" disabled><i class="fa fa-file-excel-o fa-fw"></i> Export Excel</button>
 					</div>
 				</div>
 				<div class="portlet-body portlet-collapsed">
-					<div class="table-responsive" id="vresult">
-						<!-- <table class="table table-bordered text-center">
-							<thead class="bg-blue-chambray bg-font-blue-chambray">
-								<tr>
-									<td>Jul 2019</td>
-									<td>Aug 2019</td>
-									<td>Sep 2019</td>
-									<td>Oct 2019</td>
-									<td>Nov 2019</td>
-									<td>Dec 2019</td>
-									<td>Jan 2020</td>
-									<td>Feb 2020</td>
-									<td>Mar 2020</td>
-									<td>Apr 2020</td>
-									<td>May 2020</td>
-									<td>Jun 2020</td>
-								</tr>
-							</thead>
-							<tbody class="bg-blue-hoki bg-font-blue-hoki">
-								<tr>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-									<td>
-										<i class="fa fa-times"></i>
-										<p class="small">01-Jul-19</p>
-									</td>
-								</tr>
-							</tbody>
-						</table> -->
-					</div>
+					<div class="table-responsive" id="vresult"></div>
 				</div>
 			</div>
 
 		</div>
 	</div>
+
 </div>
