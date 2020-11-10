@@ -36,6 +36,16 @@
 									</select>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="tipe">Tipe</label>
+								<div class="col-md-6">
+									<select class="form-control" id="tipe" name="tipe" required>
+										<option value="all">Semua Data</option>
+										<option value="1">Lunas</option>
+										<option value="0">Tertunggak</option>
+									</select>
+								</div>
+							</div>
 
 						</div>
 						<div class="form-actions">

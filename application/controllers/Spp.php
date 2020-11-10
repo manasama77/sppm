@@ -49,10 +49,9 @@ class Spp extends CI_Controller {
 		if($nis != 'all'){ $where['nis'] = $nis; }
 
 		$siswas              = $this->mcore->get('siswa', '*', $where, 'nama', 'ASC', NULL, NULL);
-
 		$data['total_siswa'] = $siswas->num_rows();
 		$data['siswa']       = [];
-		$i = 0;
+		$i                   = 0;
 
 		foreach ($siswas->result() as $siswa) {
 			$nis        = $siswa->nis;
@@ -101,7 +100,7 @@ class Spp extends CI_Controller {
 		echo json_encode($data);
 		exit;
 	}
-	
+
 	public function show_nominal($id_spp = NULL, $nis = NULL)
 	{
 		if($id_spp == NULL && $nis == NULL){

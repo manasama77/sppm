@@ -144,7 +144,8 @@
 		.done(function(res){
 			console.log(res);
 			let flag_bayar = '';
-			let html = ``;
+			let html       = ``;
+			let tipe       = $('#tipe').val();
 
 			if(res.total_siswa == 0){
 				html += `
@@ -200,9 +201,21 @@
 					`;
 
 					$.each(res.siswa[i].data, function(ispp, kspp){
-						let bulan = kspp.bulan;
-						let tahun = kspp.tahun;
-						html += `<td>${bulan} ${tahun}</td>`;
+						let bulan      = kspp.bulan;
+						let tahun      = kspp.tahun;
+						let flag_bayar = kspp.flag_bayar;
+
+						if(tipe == '1'){
+							if(flag_bayar == '1'){
+								html += `<td>${bulan} ${tahun}</td>`;
+							}
+						}else if(tipe == '0'){
+							if(flag_bayar == '0'){
+								html += `<td>${bulan} ${tahun}</td>`;
+							}
+						}else{
+							html += `<td>${bulan} ${tahun}</td>`;
+						}
 					})
 
 					html += `</tr></thead><tbody><tr>`
@@ -211,14 +224,28 @@
 						let tanggal_bayar = kspp.tanggal_bayar;
 						let flag_bayar    = kspp.flag_bayar;
 
-						if(flag_bayar == '1'){
-							html += `
-							<td class="bg-green-jungle bg-font-green-jungle">
-							<i class="fa fa-check"></i>
-							<p class="small">${tanggal_bayar}</p>
-							</td>`;
+						if(tipe == '1'){
+							if(flag_bayar == '1'){
+								html += `
+								<td class="bg-green-jungle bg-font-green-jungle">
+								<i class="fa fa-check"></i>
+								<p class="small">${tanggal_bayar}</p>
+								</td>`;
+							}
+						}else if(tipe == '0'){
+							if(flag_bayar == '0'){
+								html += `<td class="bg-red-thunderbird bg-font-red-thunderbird"><i class="fa fa-times"></i></td>`;
+							}
 						}else{
-							html += `<td class="bg-red-thunderbird bg-font-red-thunderbird"><i class="fa fa-times"></i></td>`;
+							if(flag_bayar == '1'){
+								html += `
+								<td class="bg-green-jungle bg-font-green-jungle">
+								<i class="fa fa-check"></i>
+								<p class="small">${tanggal_bayar}</p>
+								</td>`;
+							}else{
+								html += `<td class="bg-red-thunderbird bg-font-red-thunderbird"><i class="fa fa-times"></i></td>`;
+							}
 						}
 
 					});
